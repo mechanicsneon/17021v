@@ -26,6 +26,11 @@ motor rightrear_stacked(PORT10, ratio6_1, false);
 inertial inertialsensor = inertial(PORT4);
 motor_group left_drive = motor_group(leftfront, leftrear, leftrear_stacked);
 motor_group right_drive = motor_group(rightfront, rightrear, rightrear_stacked);
+motor intake_rear_top(PORT19, ratio18_1, false);
+motor intake_rear_bottom(PORT21, ratio18_1, false);
+motor intake_front_left(PORT11, ratio18_1, false);
+motor intake_front_right(PORT20, ratio18_1, false);
+motor_group intake = motor_group(intake_rear_top, intake_rear_bottom, intake_front_left, intake_front_right);
 /*---------------------------------------------------------------------------*/
 /*                          Pre-Autonomous Functions                         */
 /*                                                                           */
@@ -81,7 +86,10 @@ void usercontrol(void) {
     // ........................................................................
     left_drive.spin(forward, Controller1.Axis3.position(percent), percent);
     right_drive.spin(reverse, Controller1.Axis2.position(percent), percent);
-
+    intake_front_left.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    intake_front_right.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    intake_rear_bottom.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    intake_rear_top.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
