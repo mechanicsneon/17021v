@@ -87,17 +87,17 @@ void usercontrol(void) {
     // Drive control
     left_drive.spin(forward, Controller1.Axis3.position(percent), percent);
     right_drive.spin(reverse, Controller1.Axis2.position(percent), percent);
-    // placeholder comment
+    // High goal intake control
     intake_front_left.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_front_right.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_rear_bottom.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_rear_top.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
-    // placeholder comment
+    // Low goal intake control and outtake controls
     intake_front_left.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_front_right.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_rear_bottom.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_rear_top.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
-    // placeholder comment
+    // Middle goal intake control
     intake_front_left.spin(reverse, Controller1.ButtonL1.pressing() - Controller1.ButtonL2.pressing() * 100, percent);
     intake_front_right.spin(forward, Controller1.ButtonL1.pressing() - Controller1.ButtonL2.pressing() * 100, percent);
     wait(20, msec); // Sleep the task for a short amount of time to
