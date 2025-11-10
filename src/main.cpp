@@ -84,12 +84,22 @@ void usercontrol(void) {
     // Insert user code here. This is where you use the joystick values to
     // update your motors, etc.
     // ........................................................................
+    // Drive control
     left_drive.spin(forward, Controller1.Axis3.position(percent), percent);
     right_drive.spin(reverse, Controller1.Axis2.position(percent), percent);
+    // placeholder comment
     intake_front_left.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_front_right.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_rear_bottom.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
     intake_rear_top.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    // placeholder comment
+    intake_front_left.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    intake_front_right.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    intake_rear_bottom.spin(reverse, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    intake_rear_top.spin(forward, Controller1.ButtonR1.pressing() - Controller1.ButtonR2.pressing() * 100, percent);
+    // placeholder comment
+    intake_front_left.spin(reverse, Controller1.ButtonL1.pressing() - Controller1.ButtonL2.pressing() * 100, percent);
+    intake_front_right.spin(forward, Controller1.ButtonL1.pressing() - Controller1.ButtonL2.pressing() * 100, percent);
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
   }
