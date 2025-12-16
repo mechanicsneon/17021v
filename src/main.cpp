@@ -24,7 +24,6 @@ motor rightfront(PORT9, ratio6_1, true);
 motor rightrear(PORT8, ratio6_1, true);
 motor rightrear_stacked(PORT10, ratio6_1, false);
 inertial inertialsensor = inertial(PORT4);
-vision aiVision = vision(PORT11);
 motor_group left_drive = motor_group(leftfront, leftrear, leftrear_stacked);
 motor_group right_drive = motor_group(rightfront, rightrear, rightrear_stacked);
 motor intake_bottom_front(PORT19, ratio18_1, true);
@@ -42,25 +41,7 @@ motor_group intake = motor_group(intake_bottom_front, intake_rear_bottom, intake
 /*---------------------------------------------------------------------------*/
 
 void pre_auton(void) {
-
-  // All activities that occur before the competition starts
-  // Example: clearing encoders, setting servo positions, ...
-}
-
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                              Autonomous Task                              */
-/*                                                                           */
-/*  This task is used to control your robot during the autonomous phase of   */
-/*  a VEX Competition.                                                       */
-/*                                                                           */
-/*  You must modify the code to add your own robot specific commands here.   */
-/*---------------------------------------------------------------------------*/
-
-void autonomous(void) {
-  // ..........................................................................
-  // Insert autonomous user code here.
-  // ..........................................................................
+  Brain.Screen.clearScreen();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -73,13 +54,14 @@ void autonomous(void) {
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
+void autonomous(void) {
+  // ..........................................................................
+  // Insert autonomous user code here.
+  // ..........................................................................
+}
+
 void usercontrol(void) {
   // User control code here, inside the loop
-  // toggles for intake
-  bool r1Toggle = false;
-  bool r2Toggle = false;
-  bool lastR1 = false;
-  bool lastR2 = false;
 
   while (1) {
     // This is the main execution loop for the user control program.
@@ -93,20 +75,9 @@ void usercontrol(void) {
     // Drive control
     left_drive.spin(forward, Controller1.Axis3.position(percent), percent);
     right_drive.spin(reverse, Controller1.Axis2.position(percent), percent);
-    // read current R button states and handle toggle on press edge
+    // read current R button states (hold-to-run)
     bool curR1 = Controller1.ButtonR1.pressing();
     bool curR2 = Controller1.ButtonR2.pressing();
-    if (curR1 && !lastR1) {
-      // toggle R1 mode; turning one on turns the other off
-      r1Toggle = !r1Toggle;
-      if (r1Toggle) r2Toggle = false;
-    }
-    if (curR2 && !lastR2) {
-      r2Toggle = !r2Toggle;
-      if (r2Toggle) r1Toggle = false;
-    }
-    lastR1 = curR1;
-    lastR2 = curR2;
 
     // Middle-goal control (L1/L2): spin bottom and front-right opposite each other.
     // Priority: middle-goal (L) overrides tall-goal (R).
@@ -121,11 +92,11 @@ void usercontrol(void) {
   intake_bottom_front.spin(forward, 100, percent);
     intake_front_right.spin(reverse, 100, percent);
     intake_rear_bottom.spin(reverse, 100, percent);
-    } else if (r1Toggle) {
-      // Tall-goal intake toggled on
+    } else if (curR1) {
+      // Tall-goal intake (hold R1)
       intake.spin(forward, 100, percent);
-    } else if (r2Toggle) {
-      // Tall-goal outtake toggled on
+    } else if (curR2) {
+      // Tall-goal outtake (hold R2)
       intake.spin(reverse, 100, percent);
   } else {
     // Stop all intake motors when no buttons are pressed
