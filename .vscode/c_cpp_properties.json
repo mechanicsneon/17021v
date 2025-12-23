@@ -17,12 +17,20 @@
 		{
 			"name": "Win32",
 			"includePath": [
-				"${vex_sdkIncludes}"
+				"${vex_sdkIncludes}",
+				"c:\\Users\\geoso\\Documents\\vex-vscode-projects\\17021v\\include"
 			],
-			"compilerPath": "${vex_compilerPath}",
-			"cStandard": "gnu99",
-			"cppStandard": "gnu++11",
-			"intelliSenseMode": "windows-clang-x86"
+			"compilerPath": "c:\\Users\\geoso\\AppData\\Roaming\\Code\\User\\globalStorage\\sigbots.pros\\install\\pros-toolchain-windows\\usr\\bin\\arm-none-eabi-g++",
+			"cStandard": "gnu11",
+			"cppStandard": "gnu++20",
+			"intelliSenseMode": "gcc-arm",
+			"browse": {
+				"path": [
+					"c:\\Users\\geoso\\Documents\\vex-vscode-projects\\17021v"
+				],
+				"limitSymbolsToIncludedHeaders": true,
+				"databaseFilename": ""
+			}
 		},
 		{
 			"name": "Mac",
