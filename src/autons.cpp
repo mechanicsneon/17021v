@@ -374,14 +374,27 @@ void measure_offsets() {
 }
 
 // . . .
-  void test() {
-  chassis.pid_odom_set({{{0_in, 24_in}, fwd, DRIVE_SPEED},
-                        {{12_in, 24_in}, fwd, DRIVE_SPEED},
-                        {{24_in, 24_in}, fwd, DRIVE_SPEED}},
-                       true);
-  chassis.pid_wait_until_index(1);  // Waits until the robot passes 12, 24
-  intake.move(127);  // Set your intake to start moving once it passes through the second point in the index
+  void blue() {
+  matchloader.set(true);
+  chassis.pid_drive_set(15_in, 100);
   chassis.pid_wait();
-  intake.move(0);  // Turn the intake off
+  chassis.pid_turn_set(-90_deg, 45);
+  chassis.pid_wait();
+  chassis.pid_drive_set(25_in, 100);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-90_deg, 90);
+  chassis.pid_wait();
+  matchloader.set(false);
+  chassis.pid_turn_set(-90_deg, 90);
+  chassis.pid_wait();
+  chassis.pid_drive_set(10_in, 100);
+  chassis.pid_wait();
 }
+
+void red() {
+  // Mirror blue autonomous across the X axis
+  chassis.odom_x_flip();
+  blue();
+}
+
 // . . .

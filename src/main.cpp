@@ -50,7 +50,8 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      {"test", test},
+      {"Blue Alliance", blue}, // Add your autonomous routines here!
+      {"Red Alliance", red},  // Add your autonomous routines here!
   });
 
   // Initialize chassis and auton selector
@@ -242,6 +243,12 @@ else if (master.get_digital(DIGITAL_L2)) {
 else {
   intake.move(0);
 }
+if (master.get_digital(DIGITAL_R1)) {
+  matchloader.set(true);
+} 
+else if (master.get_digital(DIGITAL_R2)) {
+  matchloader.set(false);
+} 
     // . . .
 
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME

@@ -2,4 +2,5 @@
 
 void default_constants();
 
-void test();
+void blue();
+void red();
