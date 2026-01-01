@@ -386,7 +386,7 @@ void measure_offsets() {
   chassis.pid_wait();
   chassis.pid_drive_set(20_in, 127);
   chassis.pid_wait();
-  chassis.pid_turn_set(90_deg, 100);
+  chassis.pid_turn_set(-90_deg, 100);
   chassis.pid_drive_set(10_in, 127);
   chassis.pid_wait();
   }
