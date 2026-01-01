@@ -373,23 +373,31 @@ void measure_offsets() {
   if (chassis.odom_tracker_front != nullptr) chassis.odom_tracker_front->distance_to_center_set(f_offset);
 }
 
+///
+// Helper: move to a field coordinate and face heading
+///
+
+
 // . . .
   void blue() {
+  chassis.pid_drive_set(20_in, 127);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-90_deg, 100);
+  chassis.pid_wait();
+  chassis.pid_drive_set(20_in, 127);
+  chassis.pid_wait();
+  chassis.pid_turn_set(-90_deg, 100);
+  chassis.pid_wait();
   matchloader.set(true);
-  chassis.pid_drive_set(15_in, 100);
   chassis.pid_wait();
-  chassis.pid_turn_set(-90_deg, 45);
+  chassis.pid_drive_set(10_in, 127);
   chassis.pid_wait();
-  chassis.pid_drive_set(25_in, 100);
+  intake.move(127);
   chassis.pid_wait();
-  chassis.pid_turn_set(-90_deg, 90);
+  pros::delay(1000);
+  intake.move(0);
   chassis.pid_wait();
-  matchloader.set(false);
-  chassis.pid_turn_set(-90_deg, 90);
-  chassis.pid_wait();
-  chassis.pid_drive_set(10_in, 100);
-  chassis.pid_wait();
-}
+  }
 
 void red() {
   // Mirror blue autonomous across the X axis
