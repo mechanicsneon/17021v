@@ -386,23 +386,11 @@ void measure_offsets() {
   chassis.pid_wait();
   chassis.pid_drive_set(20_in, 127);
   chassis.pid_wait();
-  chassis.pid_turn_set(-90_deg, 100);
+  chassis.pid_turn_set(-60_deg, 90);
   chassis.pid_wait();
-  matchloader.set(true);
-  chassis.pid_wait();
+  chassis.pid_turn_set(-30_deg, 90);
   chassis.pid_drive_set(10_in, 127);
   chassis.pid_wait();
-  intake.move(127);
-  chassis.pid_wait();
-  pros::delay(1000);
-  intake.move(0);
-  chassis.pid_wait();
   }
-
-void red() {
-  // Mirror blue autonomous across the X axis
-  chassis.odom_x_flip();
-  blue();
-}
 
 // . . .

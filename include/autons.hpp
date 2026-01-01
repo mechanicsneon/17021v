@@ -3,4 +3,3 @@
 void default_constants();
 
 void blue();
-void red();

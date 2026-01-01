@@ -51,7 +51,6 @@ void initialize() {
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
       {"Blue Alliance", blue}, // Add your autonomous routines here!
-      {"Red Alliance", red},  // Add your autonomous routines here!
   });
 
   // Initialize chassis and auton selector
