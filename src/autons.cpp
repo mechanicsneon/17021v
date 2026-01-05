@@ -377,13 +377,47 @@ void measure_offsets() {
 // Make your own autonomous functions here!
 // . . .
 void blue() {
-  chassis.pid_drive_set(20_in, 127);
+  chassis.pid_odom_set({{{0_in, 24_in}, fwd, DRIVE_SPEED},
+                        {{12_in, 24_in}, fwd, DRIVE_SPEED},
+                        {{24_in, 24_in}, fwd, DRIVE_SPEED}},
+                       true);
+  chassis.pid_wait_until_index(1);  // Waits until the robot passes 12, 24
+  intake.move(127);  // Set your intake to start moving once it passes through the second point in the index
   chassis.pid_wait();
-  chassis.pid_turn_set(-90_deg, 100);
+  pros::delay(0650);   // Extra 1 second spin
+  intake.move(0);  // Turn the intake off
+
+  // Reverse 10 inches after intaking
+  chassis.pid_drive_set(-15_in, DRIVE_SPEED, true);
   chassis.pid_wait();
-  chassis.pid_drive_set(20_in, 127);
-  chassis.pid_wait();
-  chassis.pid_turn_set(-90_deg, 100);
-  chassis.pid_drive_set(10_in, 127);
-  chassis.pid_wait();
+  pros::delay(0500);
+
+// Turn to 45deg
+chassis.pid_turn_set(45_deg, 90);
+chassis.pid_wait();
+
+// Turn to 0deg
+chassis.pid_turn_set(0, 90);
+chassis.pid_wait();
+
+chassis.pid_drive_set(26_in, 100);
+chassis.pid_wait();
+
+// Turn to 90 deg
+chassis.pid_turn_set(90_deg, 90);
+chassis.pid_wait();
+
+chassis.pid_drive_set(9.5_in, 100);
+chassis.pid_wait();
+
+  // After driving forward 9.5 inches, spin the intake for 3 seconds
+  intake.move(127);
+  pros::delay(3000);
+  intake.move(0);
+}
+
+void red() {
+  chassis.odom_x_flip();
+  chassis.odom_theta_flip();
+  blue();
 }
